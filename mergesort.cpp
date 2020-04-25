@@ -34,10 +34,6 @@ void merge(std::vector<float> & A, int p, int q, int r)
 
   for(int k = p; k <= r; k++)
   {
-    printvec(A);
-    printvec(L);
-    printvec(R);
-    std::cout << "i, j, k " << i << " " << j << " " << k << std::endl;
     if(L.at(i) <= R.at(j))
     {
       A.at(k) = L.at(i);
@@ -56,7 +52,16 @@ void merge_sort(std::vector<float> & fvec, int p, int r)
   if(p < r)
   {
     int q = (p+r) / 2;
-    
+    std::cout<<"calling merge_sort(fvec, "<<p<<" "<<q<<")"<<std::endl;
+    merge_sort(fvec, p, q);
+    std::cout<<"calling merge_sort(fvec, "<<q+1<<" "<<r<<")"<<std::endl;
+    merge_sort(fvec, q+1, r);
+    std::cout<<"calling merge(fvec, "<<p<<" "<<q+1<<" "<<r<<")"<<std::endl;
+    std::cout<<"before merge: "<<std::endl;
+    printvec(fvec);
+    merge(fvec,p,q+1,r);
+    std::cout<<"after merge: "<<std::endl;
+    printvec(fvec);
   }
   return;
 }
@@ -70,6 +75,13 @@ int main()
   printvec(merge_in);
   merge(merge_in, 0, 4, 8);
   printvec(merge_in);
+
+  float ms [] = {0.4, 1.4, -0.4, 6.4, 2.4, 7.4, 3.4};
+  //float ms [] = {0.4, 1.4};
+
+  std::vector<float> ms_in(ms, ms+sizeof(ms)/sizeof(ms[0]));
+  merge_sort(ms_in,0,ms_in.size()-1);
+  printvec(ms_in);
  
 }
 
