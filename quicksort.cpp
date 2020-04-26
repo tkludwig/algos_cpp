@@ -34,13 +34,25 @@ int partition(std::vector<float> & A, int p, int r)
   return i+1;
 }
 
+void quicksort(std::vector<float> & A, int p, int r)
+{
+  if(p<r)
+  {
+    int q = partition(A, p, r);
+    quicksort(A, p, q-1);
+    quicksort(A, q+1, r);
+  }
+}
+
 int main()
 {
-  float qs [] = {0.4, 1.4, -0.4, 6.4, 2.4, 7.4, 9.5};
+  float qs [] = {0.4, 1.4, -0.4, 6.4, 2.4, 7.4, 0.5};
   std::vector<float> qs_in(qs, qs+sizeof(qs)/sizeof(qs[0]));
   printvec(qs_in);
 
-  int q = partition(qs_in,0,qs_in.size()-1);
+  //int q = partition(qs_in,0,qs_in.size()-1);
+  //printvec(qs_in);
+  //std::cout << q << std::endl;
+  quicksort(qs_in, 0, qs_in.size()-1);
   printvec(qs_in);
-  std::cout << q << std::endl;
 }
